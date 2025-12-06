@@ -32,8 +32,10 @@ const AIChat: React.FC = () => {
     try {
       // Initialize Gemini Client
       // Note: In a real production app, API calls should be proxied through a backend
-      // to protect the API key. For this demo, we assume process.env.API_KEY is available.
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+      // to protect the API key. We safely check for process.env availability to prevent
+      // browser runtime crashes.
+      const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) || '';
+      const ai = new GoogleGenAI({ apiKey });
       
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
