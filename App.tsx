@@ -26,7 +26,12 @@ import {
   Rocket,
   QrCode,
   Globe,
-  Network
+  Network,
+  Brain,
+  BookOpen,
+  Box,
+  Sparkles,
+  Bot
 } from 'lucide-react';
 import AIChat from './components/AIChat';
 import { 
@@ -385,10 +390,47 @@ const App: React.FC = () => {
             {PROJECTS.map((project, idx) => (
               <div key={idx} className="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col">
                 {/* Visual Placeholder for Project Image */}
-                <div className={`h-48 w-full ${project.imagePlaceholderColor} relative flex items-center justify-center overflow-hidden group`}>
-                   {idx === 0 ? <Globe size={64} className="text-blue-500/50" /> : <Monitor size={64} className="text-indigo-500/50" />}
-                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
-                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-primary-700 shadow-sm">
+                <div className={`h-48 w-full relative flex items-center justify-center overflow-hidden group`}>
+                   {/* Dynamic Gradient Background */}
+                   <div className={`absolute inset-0 transition-transform duration-700 group-hover:scale-105 ${
+                      idx === 0 
+                      ? 'bg-gradient-to-br from-blue-600 to-cyan-500' 
+                      : 'bg-gradient-to-br from-indigo-600 to-violet-500'
+                   }`}></div>
+                   
+                   {/* Decorative Blurs */}
+                   <div className="absolute inset-0 opacity-20 pointer-events-none">
+                       <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                       <div className="absolute bottom-0 left-0 w-24 h-24 bg-black rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
+                   </div>
+
+                   {/* Icon Composition */}
+                   <div className="relative z-10 transform transition-transform duration-500 group-hover:scale-110">
+                      {idx === 0 ? (
+                          <div className="relative flex items-center justify-center">
+                             <Brain size={80} className="text-white drop-shadow-md" />
+                             <div className="absolute -top-6 -right-8 bg-white/20 p-2 rounded-lg backdrop-blur-sm animate-pulse">
+                                <Network size={24} className="text-white" />
+                             </div>
+                             <div className="absolute -bottom-4 -left-8 bg-white/20 p-2 rounded-full backdrop-blur-sm">
+                                <Bot size={24} className="text-white" />
+                             </div>
+                          </div>
+                      ) : (
+                          <div className="relative flex items-center justify-center">
+                             <BookOpen size={80} className="text-white drop-shadow-md" />
+                             <div className="absolute -top-6 -right-8 bg-white/20 p-2 rounded-lg backdrop-blur-sm animate-bounce" style={{ animationDuration: '3s' }}>
+                                <Box size={24} className="text-white" />
+                             </div>
+                             <div className="absolute -bottom-4 -left-8 bg-white/20 p-2 rounded-full backdrop-blur-sm">
+                                <Sparkles size={24} className="text-white" />
+                             </div>
+                          </div>
+                      )}
+                   </div>
+
+                   {/* Status Badge */}
+                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm z-20">
                      {project.status}
                    </div>
                 </div>
